@@ -4,8 +4,6 @@ pub fn build(b: *std.Build) !void {
     const target = b.standardTargetOptions(.{});
     const optimize = b.standardOptimizeOption(.{});
 
-    const module = b.addModule("freetype", .{ .root_source_file = .{ .path = "main.zig" } });
-
     const upstream = b.dependency("freetype", .{});
     const lib = b.addStaticLibrary(.{
         .name = "freetype",
@@ -14,9 +12,6 @@ pub fn build(b: *std.Build) !void {
     });
     lib.linkLibC();
     lib.addIncludePath(upstream.path("include"));
-
-    module.addIncludePath(upstream.path("include"));
-    module.addIncludePath(.{ .path = "" });
 
     // Dependencies
     var flags = std.ArrayList([]const u8).init(b.allocator);

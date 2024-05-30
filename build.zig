@@ -21,7 +21,6 @@ pub fn build(b: *std.Build) !void {
         .optimize = optimize,
     });
 
-    exe.root_module.addImport("freetype", freetype_dep.module("freetype"));
     exe.linkLibrary(freetype_dep.artifact("freetype"));
 
     b.installArtifact(exe);
